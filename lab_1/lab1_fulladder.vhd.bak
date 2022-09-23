@@ -1,0 +1,51 @@
+entity fullAdder is
+	 generic(prop_delay: Time := 10 ns);
+	 port(a_in,b_in,carry_in: in bit;
+	      result,carry_out: out bit);
+end entity fullAdder;
+
+architecture behavior1 of fullAdder is 
+begin
+	addProcess : process(a_in,b_in,carry_in) is
+
+	begin
+		if carry_in = '1' then
+		  if a_in = '1' then
+		    if b_in = '1' then
+			result <= '1' after prop_delay;
+			carry_out <= '1' after prop_delay;
+		    else
+			result <= '0' after prop_delay;
+			carry_out <= '1' after prop_delay;
+		    end if;
+		  else
+		    if b_in = '1' then
+			result <= '0' after prop_delay;
+			carry_out <= '1' after prop_delay;
+		    else
+			result <= '1' after prop_delay;
+			carry_out <= '0' after prop_delay;
+		    end if;
+		  end if;
+		else
+		  if a_in = '1' then
+		    if b_in = '1' then
+			result <= '0' after prop_delay;
+			carry_out <= '1' after prop_delay;
+		    else
+			result <= '1' after prop_delay;
+			carry_out <= '0' after prop_delay;
+		    end if;
+		  else
+		    if b_in = '1' then
+			result <= '1' after prop_delay;
+			carry_out <= '0' after prop_delay;
+		    else
+			result <= '0' after prop_delay;
+			carry_out <= '0' after prop_delay;
+		    end if;
+		  end if;
+		end if;
+
+	end process addProcess;
+end architecture behavior1;
